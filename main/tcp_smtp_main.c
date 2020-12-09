@@ -58,7 +58,6 @@
 #define SENDER_PASSWORD     CONFIG_SMTP_SENDER_PASSWORD
 #define RECIPIENT_MAIL      CONFIG_SMTP_RECIPIENT_MAIL
 
-
 static const char *TAG = "Envio de email com tcp server";
 
 #define SERVER_USES_STARTSSL 1
