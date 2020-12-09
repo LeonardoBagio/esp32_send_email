@@ -48,10 +48,13 @@
 #define SENDER_MAIL         CONFIG_SMTP_SENDER_MAIL
 #define SENDER_PASSWORD     CONFIG_SMTP_SENDER_PASSWORD
 #define RECIPIENT_MAIL      CONFIG_SMTP_RECIPIENT_MAIL
+#define TITULO_EMAIL        "Titulo do emailzinho"
+#define CORPO_EMAIL         "Aquele corpo de emailzinho"
+#define RODAPE_EMAIL        "Trabalho de Pexe e Bagio"
 
 #define SERVER_USES_STARTSSL 1
 
-static const char *TAG = "smtp_example";
+static const char *TAG = "smtp";
 
 #define TASK_STACK_SIZE     (8 * 1024)
 #define BUF_SIZE            512
@@ -423,10 +426,10 @@ static void smtp_client_task(void *pvParameters)
     ESP_LOGI(TAG, "Write Content");
     /* We do not take action if message sending is partly failed. */
     len = snprintf((char *) buf, BUF_SIZE,
-                   "From: %s\r\nSubject: mbed TLS Test mail\r\n"
+                   "From: %s\r\nSubject: \r\n"
                    "To: %s\r\n"
                    "MIME-Version: 1.0 (mime-construct 1.9)\n",
-                   "ESP32 SMTP Client", RECIPIENT_MAIL);
+                   TITULO_EMAIL, RECIPIENT_MAIL);
 
     ret = write_ssl_data(&ssl, (unsigned char *) buf, len);
 
@@ -439,9 +442,9 @@ static void smtp_client_task(void *pvParameters)
     /* Text */
     len = snprintf((char *) buf, BUF_SIZE,
                    "Content-Type: text/plain\n"
-                   "This is a simple test mail from the SMTP client example.\r\n"
+                   CORPO_EMAIL"\r\n"
                    "\r\n"
-                   "Enjoy!\n\n--XYZabcd1234\n");
+                   RODAPE_EMAIL"\n\n--XYZabcd1234\n");
     ret = write_ssl_data(&ssl, (unsigned char *) buf, len);
 
     /* Attachment */
